@@ -1,0 +1,49 @@
+name: Deploy to Cloudflare Pages
+# https://docs.github.com/zh/actions/reference/workflows-and-actions/contexts
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Production
+        if: github.ref_name == 'main' #main 分支
+        run: npm run prod-build
+
+      - name: Build Development
+        if: github.ref_name == 'develop' #develop 分支
+        run: npm run dev-build
+
+      # https://jeff-vue-app.pages.dev/#/login
+      # 部署到正式環境
+      - name: Deploy Production to Cloudflare Pages
+        if: github.ref_name == 'main'
+        run: npx wrangler pages deploy dist --project-name=jeff-vue-app --branch=main
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      #  https://<random-code>.jeff-vue-app.pages.dev/#/login
+      #  部署到開發環境
+      - name: Deploy Development to Cloudflare Pages
+        if: github.ref_name == 'develop'
+        run: npx wrangler pages deploy dist --project-name=jeff-vue-app --branch=develop
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

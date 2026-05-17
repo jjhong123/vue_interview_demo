@@ -1,0 +1,50 @@
+{
+  "success": true,
+  "data": {
+    "listeningData": [
+      {
+        "groupData": {
+          "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+          "questionData": [
+            {
+              "type": "single-choice",
+              "question_title": "生活常識：水果的顏色",
+              "question": "通常情況下，成熟的香蕉最常見的顏色是什麼？",
+              "options": {
+                "A": "紅色",
+                "B": "藍色",
+                "C": "黃色",
+                "D": "黑色"
+              },
+              "correct_answer": ["C"]
+            },
+            {
+              "type": "single-choice",
+              "question_title": "生活常識：天氣現象",
+              "question": "當天空出現彩虹時，通常是因為發生了什麼天氣情況？",
+              "options": {
+                "A": "下雪過後",
+                "B": "出太陽且有水滴",
+                "C": "沙塵暴",
+                "D": "地震"
+              },
+              "correct_answer": ["B"]
+            },
+            {
+              "type": "single-choice",
+              "question_title": "生活常識：每週天數",
+              "question": "請問一個星期共有多少天？",
+              "options": {
+                "A": "5 天",
+                "B": "6 天",
+                "C": "7 天",
+                "D": "8 天"
+              },
+              "correct_answer": ["C"]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
