@@ -48,6 +48,16 @@ const routes = [
         name: 'Speaking',
         component: () => import('@/views/Speaking.vue'),
       },
+      {
+        path: 'CRUD',
+        name: 'CRUD',
+        component: () => import('@/views/CRUD.vue'),
+      },
+      {
+        path: 'google-vision',
+        name: 'GoogleVision',
+        component: () => import('@/views/GoogleVision.vue'),
+      },
     ],
   },
   {

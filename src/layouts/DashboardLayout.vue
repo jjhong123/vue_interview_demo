@@ -1,6 +1,6 @@
 <template>
   <v-layout full-height>
-    <v-navigation-drawer v-model="drawer" color="primary" width="240" flat border="e">
+    <v-navigation-drawer v-model="drawer" color="primary" width="240" flat border="e" :mobile="isMobile">
       <v-list-item title="DEMO System" class="pa-4 font-weight-bold"></v-list-item>
       <v-divider class="opacity-20"></v-divider>
       <v-list nav density="compact">
@@ -8,8 +8,9 @@
         <v-list-item prepend-icon="mdi-book-open-outline" title="閱讀" to="/dashboard/reading"></v-list-item>
         <v-list-item prepend-icon="mdi-account-group-outline" title="聽力" to="/dashboard/listening"></v-list-item>
         <v-list-item prepend-icon="mdi-microphone-outline" title="口說" to="/dashboard/speaking"></v-list-item>
+        <v-list-item prepend-icon="mdi-database-outline" title="CRUD" to="/dashboard/CRUD"></v-list-item>
+        <v-list-item prepend-icon="mdi-google" title="Google Vision" to="/dashboard/google-vision"></v-list-item>
       </v-list>
-
       <template #append>
         <div class="pa-4">
           <v-btn block variant="tonal" size="large" class="text-none" @click="handleLogout">
@@ -37,7 +38,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
+import { useDisplay } from 'vuetify'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
@@ -45,13 +47,17 @@ const drawer = ref(true)
 const router = useRouter()
 const userStore = useUserStore()
 
-onMounted(() => {
-  if (window.innerWidth >= 1280) {
-    drawer.value = true
-  } else {
+const { width } = useDisplay()
+
+const isMobile = computed(() => width.value < 1024)
+
+watch(isMobile, (newVal) => {
+  if (newVal) {
     drawer.value = false
+  } else {
+    drawer.value = true
   }
-})
+}, { immediate: true })
 
 const handleLogout = () => {
   userStore.logout()
