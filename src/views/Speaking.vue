@@ -66,7 +66,6 @@ const timeText = computed(() => {
 
 onMounted(async () => {
   const response = await examStore.getStudentInfo(123, { name: 'JEFF', age: 25 })
-  console.log(response.data.args)
 })
 
 function startRecording() {
