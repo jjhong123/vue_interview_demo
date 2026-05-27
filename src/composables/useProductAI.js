@@ -4,13 +4,20 @@ import { GoogleGenAI } from "@google/genai"
 export function useProductAI() {
   const aiReport = ref('')
   const aiLoading = ref(false)
+  const apiKey = ref('')
 
-  const API_KEY = 'AIzaSyAQNUQcjhg3180cUkul6yGshFmDGeIw14Y'
+  const setKey = (key) => {
+    apiKey.value = key
+  }
+
+  const checkKey = () => {
+    return apiKey.value !== ''
+  }
 
   const generateAIReport = async (productsData) => {
     aiLoading.value = true
     try {
-      const client = new GoogleGenAI({ apiKey: API_KEY })
+      const client = new GoogleGenAI({ apiKey: apiKey.value })
       
       const response = await client.models.generateContent({
         model: "gemini-3.1-flash-lite", 
@@ -41,6 +48,8 @@ export function useProductAI() {
     aiReport,
     aiLoading,
     generateAIReport,
+    setKey,
+    checkKey,
     clearReport
   }
 }
