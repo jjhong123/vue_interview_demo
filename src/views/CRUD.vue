@@ -56,7 +56,7 @@
     </v-row>
 
     <v-card variant="outlined">
-      <v-data-table items-per-page="10" v-model:page="page" :headers="headers" :items="localProducts" :search="search"
+      <v-data-table items-per-page="10" :page="page" :headers="headers" :items="localProducts" :search="search"
         :loading="tableLoading">
         <template #item.price="{ item }">
           ${{ item.price }}
